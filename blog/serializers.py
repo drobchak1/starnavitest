@@ -32,3 +32,9 @@ class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
         fields = '__all__'
+
+# class LikeByDateSerializer(serializers.ModelSerializer):
+#     user = serializers.ReadOnlyField(source='user.username')
+#     class Meta:
+#         model = Like
+#         fields = '__all__'
