@@ -19,6 +19,10 @@ from django.conf.urls import include, url
 # from rest_framework.routers import DefaultRouter
 from blog.views import PostList, PostDetail, AuthorPostList #PostViewSet
 from users.views import UserList, UserDetail, RegisterView
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 # from blog.mixins import LikedMixin
 
 # router = DefaultRouter()
@@ -34,10 +38,15 @@ urlpatterns = [
     path('posts/<int:pk>/', PostDetail.as_view()),
     # path('posts/<int:pk>/like/', LikedMixin.like()),
     path('users/<int:author>/posts/', AuthorPostList.as_view()),
+    # Basic auth urls
     path('api-auth/', include('rest_framework.urls')),
+    # users urls
     path('users/', UserList.as_view()),
     path('users/<int:pk>/', UserDetail.as_view()),
     path('register/', RegisterView.as_view(), name='auth_register'),
+    # Postviewset urls
     url(r'^api/v1/', include((apipatterns, 'blog'), namespace='api')),
-    # router.urls,
+    # JWT urls
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
