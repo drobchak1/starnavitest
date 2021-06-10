@@ -16,27 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
-# from rest_framework.routers import DefaultRouter
-from blog.views import PostList, PostDetail, AuthorPostList, AnaliticView #PostViewSet
+from rest_framework.routers import DefaultRouter
+from blog.views import AuthorPostList, AnaliticView, PostViewSet
 from users.views import UserList, UserDetail, RegisterView
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
-# from blog.mixins import LikedMixin
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-# router = DefaultRouter()
-# router.register(r'posts', PostViewSet)
+
+router = DefaultRouter()
+router.register(r'posts', PostViewSet)
+
 
 apipatterns = [
     url(r'^', include('blog.urls', 'blog')),
 ]
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('posts/', PostList.as_view()),
-    path('posts/<int:pk>/', PostDetail.as_view()),
-    # path('posts/<int:pk>/like/', LikedMixin.like()),
     path('users/<int:author>/posts/', AuthorPostList.as_view()),
     # Basic auth urls
     path('api-auth/', include('rest_framework.urls')),
@@ -45,9 +41,10 @@ urlpatterns = [
     path('users/<int:pk>/', UserDetail.as_view()),
     path('register/', RegisterView.as_view(), name='auth_register'),
     # Postviewset urls
-    url(r'^api/v1/', include((apipatterns, 'blog'), namespace='api')),
+    url(r'', include((apipatterns, 'blog'), namespace='api')),
     # JWT urls
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # like`s analytics
     path('api/analitics/', AnaliticView.as_view()),
 ]

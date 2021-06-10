@@ -2,6 +2,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from blog import services
 from users.serializers import UserSerializer
+
+
 class LikedMixin:
     @action(detail=True, methods=['post'])
     def like(self, request, pk=None):
@@ -10,6 +12,7 @@ class LikedMixin:
         obj = self.get_object()
         services.add_like(obj, request.user)
         return Response()
+
     @action(detail=True, methods=['post'])
     def unlike(self, request, pk=None):
         """Удаляет лайк с `obj`.
@@ -17,6 +20,7 @@ class LikedMixin:
         obj = self.get_object()
         services.remove_like(obj, request.user)
         return Response()
+        
     @action(detail=True, methods=['get'])
     def fans(self, request, pk=None):
         """Получает всех пользователей, которые лайкнули `obj`.

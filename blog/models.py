@@ -3,7 +3,6 @@ from starnaviblog import settings
 from django.contrib.contenttypes.fields import GenericRelation, GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
-# Create your models here.
 
 class Like(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -13,6 +12,7 @@ class Like(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
     date_of_creation = models.DateTimeField(auto_now_add=True)
+
 
 class Post(models.Model):
     title = models.CharField(max_length=120)
@@ -27,12 +27,3 @@ class Post(models.Model):
     @property
     def total_likes(self):
         return self.likes.count()
-
-
-
-# class Like(models.Model):
-#     user=models.ForeignKey(settings.AUTH_USER_MODEL, related_name='likes', on_delete=models.CASCADE)
-#     post=models.ForeignKey('Post', related_name='likes',on_delete=models.CASCADE)
-
-#     class Meta:
-#         unique_together = ("user", "post")
