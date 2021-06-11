@@ -31,7 +31,7 @@ class PostViewSet(LikedMixin, viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
 
 
-class AnaliticView(GenericAPIView):
+class AnaliticsView(GenericAPIView):
     """Get the statistics on number of likes grouped by day. The first date is inclusive, 
     but the second date is exclusive. You should use "?date_from=2021-06-08&date_to=2021-06-10"
     to get likes for 06.08 and 06.09

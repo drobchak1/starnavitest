@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
 from rest_framework.routers import DefaultRouter
-from blog.views import AuthorPostList, AnaliticView, PostViewSet
+from blog.views import AuthorPostList, AnaliticsView, PostViewSet
 from users.views import UserList, UserDetail, RegisterView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
@@ -41,5 +41,5 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # like`s analytics
-    path('api/analitics/', AnaliticView.as_view()),
+    path('api/analitics/', AnaliticsView.as_view()),
 ]
