@@ -11,6 +11,10 @@ from rest_framework.response import Response
 from blog.filters import DateRangeFilterSet
 
 class AuthorPostList(generics.ListCreateAPIView):
+    """Get the statistics on number of likes grouped by day. The first date is inclusive, 
+    but the second date is exclusive. You should use "?date_from=2021-06-08&date_to=2021-06-10"
+    to get likes for 06.08 and 06.09
+    """
     # queryset = Event.objects.all()
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -20,12 +24,18 @@ class AuthorPostList(generics.ListCreateAPIView):
 
 
 class PostViewSet(LikedMixin, viewsets.ModelViewSet):
+    """CRUD operations on posts and likes
+    """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
 
 
 class AnaliticView(GenericAPIView):
+    """Get the statistics on number of likes grouped by day. The first date is inclusive, 
+    but the second date is exclusive. You should use "?date_from=2021-06-08&date_to=2021-06-10"
+    to get likes for 06.08 and 06.09
+    """
     queryset = Like.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = DateRangeFilterSet

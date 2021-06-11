@@ -26,11 +26,6 @@ router = DefaultRouter()
 router.register(r'posts', PostViewSet)
 
 
-apipatterns = [
-    url(r'^', include('blog.urls', 'blog')),
-]
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/<int:author>/posts/', AuthorPostList.as_view()),
@@ -41,7 +36,7 @@ urlpatterns = [
     path('users/<int:pk>/', UserDetail.as_view()),
     path('register/', RegisterView.as_view(), name='auth_register'),
     # Postviewset urls
-    url(r'', include((apipatterns, 'blog'), namespace='api')),
+    url(r'', include((router.urls, 'blog'), namespace='api')),
     # JWT urls
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

@@ -7,7 +7,6 @@ from django.contrib.auth import get_user_model
 class UserSerializer(serializers.ModelSerializer):
     User = get_user_model()
     posts = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    # likes = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     class Meta:
         model = User
         fields = [
@@ -19,7 +18,6 @@ class UserSerializer(serializers.ModelSerializer):
             "last_name",
             "bio",
             "posts",
-            # "likes",
             "last_login",
         ]
         extra_kwargs = {
@@ -27,9 +25,9 @@ class UserSerializer(serializers.ModelSerializer):
             "last_name": {"required": False},
             "bio": {"required": False},
             "posts": {"required": False},
-            # "likes": {"required": False},
             "last_login": {"required": False},
         }
+
 
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
@@ -51,7 +49,6 @@ class RegisterSerializer(serializers.ModelSerializer):
             "last_name": {"required": False},
             "bio": {"required": False},
             "posts": {"required": False},
-            # "likes": {"required": False},
         }
 
     def validate(self, attrs):

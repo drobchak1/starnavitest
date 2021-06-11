@@ -5,7 +5,7 @@ from .models import Like
 User = get_user_model()
 
 def add_like(obj, user):
-    """Лайкает `obj`.
+    """Like post.
     """
     obj_type = ContentType.objects.get_for_model(obj)
     like, is_created = Like.objects.get_or_create(
@@ -13,7 +13,7 @@ def add_like(obj, user):
     return like
 
 def remove_like(obj, user):
-    """Удаляет лайк с `obj`.
+    """Unlike post.
     """
     obj_type = ContentType.objects.get_for_model(obj)
     Like.objects.filter(
@@ -21,7 +21,7 @@ def remove_like(obj, user):
     ).delete()
 
 def is_fan(obj, user) -> bool:
-    """Проверяет, лайкнул ли `user` `obj`.
+    """Check if user liked post
     """
     if not user.is_authenticated:
         return False
@@ -31,7 +31,7 @@ def is_fan(obj, user) -> bool:
     return likes.exists()
 
 def get_fans(obj):
-    """Получает всех пользователей, которые лайкнули `obj`.
+    """Get all users, who liked post
     """
     obj_type = ContentType.objects.get_for_model(obj)
     return User.objects.filter(
