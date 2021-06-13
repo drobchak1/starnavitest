@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .serializers import RegisterSerializer, UserSerializer
+from .serializers import RegisterSerializer, UserSerializer, UserActivitySerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .models import User
 
@@ -14,6 +14,11 @@ class UserList(generics.ListAPIView):
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class UserActivity(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserActivitySerializer
 
 
 class RegisterView(generics.CreateAPIView):

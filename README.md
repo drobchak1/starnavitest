@@ -1,11 +1,11 @@
-# StarNavi test task
+# StarNavi test task  
 
 To start project type:
 ```sh
 python manage.py runserver
 ```
 
-## Main endpoints: 
+## Main endpoints:  
 **/admin/** - django administration  
 **/posts/** - post-list and post-creation  
 **/posts/<int:pk>/like** - Like post  
@@ -14,6 +14,7 @@ python manage.py runserver
 **api/analitics/?date_from=YYYY-MM-DD&date_to=YYYY-MM-DD** - Get the statistics on number of likes grouped by day. The first date is inclusive, but the second date is exclusive  
 **/users** - List of users  
 **/users/<int:pk>** - user view  
+**/users/<int:pk>/activity/** - view of user activity (last_login+last_activity)  
 **/register** - user registration  
 **/api/token** - JWT token acquiring  
 **api/token/refresh/** - JWT token refresh  

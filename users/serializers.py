@@ -19,6 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
             "bio",
             "posts",
             "last_login",
+            "last_activity",
         ]
         extra_kwargs = {
             "first_name": {"required": False},
@@ -26,7 +27,18 @@ class UserSerializer(serializers.ModelSerializer):
             "bio": {"required": False},
             "posts": {"required": False},
             "last_login": {"required": False},
+            "last_activity": {"required": False},
         }
+
+
+class UserActivitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            "id",
+            "last_login",
+            "last_activity",
+        ]
 
 
 class RegisterSerializer(serializers.ModelSerializer):

@@ -13,12 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from users.serializers import UserActivitySerializer
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
 from rest_framework.routers import DefaultRouter
 from blog.views import AuthorPostList, AnaliticsView, PostViewSet
-from users.views import UserList, UserDetail, RegisterView
+from users.views import UserList, UserDetail, RegisterView, UserActivity
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
@@ -34,6 +35,7 @@ urlpatterns = [
     # users urls
     path('users/', UserList.as_view()),
     path('users/<int:pk>/', UserDetail.as_view()),
+    path('users/<int:pk>/activity/', UserActivity.as_view()),
     path('register/', RegisterView.as_view(), name='auth_register'),
     # Postviewset urls
     url(r'', include((router.urls, 'blog'), namespace='api')),
