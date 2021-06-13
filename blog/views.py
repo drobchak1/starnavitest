@@ -30,6 +30,9 @@ class PostViewSet(LikedMixin, viewsets.ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
 
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
 
 class AnaliticsView(GenericAPIView):
     """Get the statistics on number of likes grouped by day. The first date is inclusive, 
