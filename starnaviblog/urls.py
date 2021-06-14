@@ -13,7 +13,6 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from users.serializers import UserActivitySerializer
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
@@ -26,22 +25,21 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 router = DefaultRouter()
 router.register(r'posts', PostViewSet)
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/<int:author>/posts/', AuthorPostList.as_view()),
+    path('users/<int:author>/posts/', AuthorPostList.as_view(), name='author_posts'),
     # Basic auth urls
     path('api-auth/', include('rest_framework.urls')),
     # users urls
-    path('users/', UserList.as_view()),
-    path('users/<int:pk>/', UserDetail.as_view()),
-    path('users/<int:pk>/activity/', UserActivity.as_view()),
+    path('users/', UserList.as_view(), name='users'),
+    path('users/<int:pk>/', UserDetail.as_view(), name='user_detail'),
+    path('users/<int:pk>/activity/', UserActivity.as_view(), name='user_activity'),
     path('register/', RegisterView.as_view(), name='auth_register'),
     # Postviewset urls
     url(r'', include((router.urls, 'blog'), namespace='api')),
     # JWT urls
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # like`s analytics
-    path('api/analitics/', AnaliticsView.as_view()),
+    path('analitics/', AnaliticsView.as_view(), name='like_analytics'),
 ]

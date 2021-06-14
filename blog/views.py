@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from .models import Post, Like
 from .serializers import PostSerializer
 from rest_framework import generics,permissions
@@ -11,11 +10,8 @@ from rest_framework.response import Response
 from blog.filters import DateRangeFilterSet
 
 class AuthorPostList(generics.ListCreateAPIView):
-    """Get the statistics on number of likes grouped by day. The first date is inclusive, 
-    but the second date is exclusive. You should use "?date_from=2021-06-08&date_to=2021-06-10"
-    to get likes for 06.08 and 06.09
+    """List of posts created by user
     """
-    # queryset = Event.objects.all()
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
